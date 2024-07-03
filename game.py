@@ -19,13 +19,16 @@ class Character:
 
     def level_up(self):
         self.level += 1
-        self.hp += 20
+        self.max_hp = self.calculate_max_health()
+        self.hp = self.max_hp
         self.attack += 5
         self.defense += 3
 
     def calculate_max_health(self):
         return 100 + (self.level - 1) * 20
     
+    def heal(self, amount):
+        self.hp = min(self.hp + amount, self.max_hp)
 
 class Enemy:
     def __init__(self, name, hp, attack, defense):
@@ -65,7 +68,7 @@ def main():
                 enemy = Enemy("Goblin", 50, 5, 2)
                 print(f"A wild {enemy.name} appears!")
                 while enemy.hp > 0 and player.hp > 0:
-                    print(f"Your HP: {player.hp}, Enemy HP: {enemy.hp}")
+                    print(f"Your HP: {player.hp}/{player.max_hp}, Enemy HP: {enemy.hp}")
                     print("1. Attack")
                     print("2. Run")
                     combat_action = input("Enter the number of your choice: ")
@@ -81,7 +84,7 @@ def main():
                             player.experience += 50
                             if player.experience >= 100:
                                 player.level_up()
-                                print(f"Congratulations! You've leveled up to level {player.level}.")
+                                print(f"Congratulations! You've leveled up to level {player.level}!")
                     elif combat_action == "2":
                         print("You ran away!")
                         break
@@ -89,20 +92,20 @@ def main():
                         print("You have been defeated. Game over.")
                         return
             else:
-                print("You walk in to the dark woods deeper.")
+                print("You walk into the dark woods deeper.")
         elif action == "2":
             print(f"Name: {player.name}")
             print(f"Class: {player.char_class}")
             print(f"Level: {player.level}")
-            print(f"HP: {player.hp}")
+            print(f"HP: {player.hp}/{player.max_hp}")
             print(f"Attack: {player.attack}")
             print(f"Defense: {player.defense}")
         elif action == "3":
             print("You rest and recover your strength.")
-            player.hp = 100  # Simplified full heal
+            player.hp = player.max_hp  # Full heal
         elif action == "4":
-            print("You rest and recover your strength.")
-            player.hp += 50 # Simplified half heal
+            print("You take a short rest and recover some of your strength.")
+            player.heal(50)  # Short rest, heal 50 HP
         elif action == "9":
             print("Thank you for playing!")
             break
