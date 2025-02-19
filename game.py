@@ -1,77 +1,11 @@
 import random
-
-class Character:
-    def __init__(self, name, char_class):
-        self.name = name
-        self.char_class = char_class
-        self.level = 1
-        self.max_hp = self.calculate_max_health()
-        self.hp = self.max_hp
-        self.attack = 10
-        self.defense = 5
-        self.experience = 0
-        self.attacks = self.get_class_attacks()
-    
-    def get_class_attacks(self):
-        class_attacks = {
-            "Warrior": {"Slash": 10, "Heavy Strike": 15, "Berserk": 20},
-            "Mage": {"Fireball": 12, "Lightning Bolt": 18, "Arcane Blast": 25},
-            "Rogue": {"Quick Stab": 8, "Shadow Strike": 14, "Deadly Poison": 22}
-        }
-        return {atk: dmg + (self.level * 2) for atk, dmg in class_attacks.get(self.char_class, {"Basic Attack": 10}).items()}
-
-    def attack_enemy(self, enemy, attack_type):
-        damage = self.attacks.get(attack_type, 10) - enemy.defense
-        if damage > 0:
-            enemy.hp -= damage
-        return damage
-
-    def level_up(self):
-        self.level += 1
-        self.max_hp = self.calculate_max_health()
-        self.hp = self.max_hp
-        self.attack += 5
-        self.defense += 3
-        self.attacks = self.get_class_attacks()  # Update attack values on level up
-
-    def calculate_max_health(self):
-        return 100 + (self.level - 1) * 20
-    
-    def heal(self, amount):
-        self.hp = min(self.hp + amount, self.max_hp)
-
-class Enemy:
-    def __init__(self, name, hp, attack, defense, attacks):
-        self.name = name
-        self.hp = int(hp * 1.2)  # Increase enemy HP slightly
-        self.attack = attack
-        self.defense = int(defense * 1.1)  # Increase enemy defense slightly
-        self.attacks = attacks  # Dictionary of attack types
-
-    def perform_attack(self):
-        attack_type = random.choice(list(self.attacks.keys()))
-        return attack_type, self.attacks[attack_type]
-
-def generate_enemy(player_level):
-    enemy_types = [
-        ("Goblin", 60, 5, 3, {"Light Attack": 5, "Medium Attack": 8, "Heavy Attack": 12}),
-        ("Orc", 85, 8, 5, {"Light Swing": 7, "Medium Swing": 12, "Heavy Smash": 18}),
-        ("Skeleton", 72, 6, 4, {"Bone Jab": 6, "Sword Slash": 10, "Crushing Blow": 15}),
-        ("Troll", 108, 10, 7, {"Scratch": 9, "Punch": 14, "Club Smash": 20}),
-        ("Wolf", 66, 7, 4, {"Bite": 6, "Claw": 10, "Pounce": 14}),
-        ("Vampire", 90, 9, 5, {"Drain": 8, "Shadow Strike": 13, "Dark Embrace": 17}),
-    ]
-    
-    weights = [max(1 - (player_level * 0.1), 0.1) for _ in enemy_types]  # Decrease easier enemies over time
-    demon_chance = min(0.005 * (2 ** (player_level - 1)), 1.0)  # Demon spawn chance doubles per level
-    
-    if random.random() < demon_chance:
-        return Enemy("Demon", 96, 12, 6, {"Fireball": 10, "Dark Slash": 15, "Hellfire": 22})
-    else:
-        return Enemy(*random.choices(enemy_types, weights=weights, k=1)[0])
+from character import Character
+from enemies import generate_enemy
+from lore import get_intro_lore
 
 def main():
     print("Welcome to the Fantasy Text Adventure Game!")
+    print(get_intro_lore())
     player_name = input("Enter your character's name: ")
     print("Choose your class:")
     print("1. Warrior")
