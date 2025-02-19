@@ -51,3 +51,4 @@ The game is organized into separate modules for **better maintainability**:
 Feel free to **contribute** to this project! Fork the repository and submit pull requests for improvements.
 
 ## License
+This project is **open-source** and free to use under the MIT License.
