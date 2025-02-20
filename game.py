@@ -59,6 +59,22 @@ def main():
                         print("Invalid choice, try again.")
             else:
                 print("You walk into the dark woods deeper.")
+        elif action == "2":
+            print(f"Name: {player.name}")
+            print(f"Class: {player.char_class}")
+            print(f"Level: {player.level}")
+            print(f"HP: {player.hp}/{player.max_hp}")
+            print(f"Attack: {player.attack}")
+            print(f"Defense: {player.defense}")
+            print("Available Attacks:")
+            for attack, damage in player.attacks.items():
+                print(f"- {attack}: {damage} damage")
+        elif action == "3":
+            print("You rest and recover your strength.")
+            player.hp = player.max_hp  # Full heal
+        elif action == "4":
+            print("You take a short rest and recover some of your strength.")
+            player.heal(50)  # Short rest, heal 50 HP
         elif action == "9":
             print("Thank you for playing!")
             break
@@ -67,3 +83,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
