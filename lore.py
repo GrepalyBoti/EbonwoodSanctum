@@ -7,5 +7,5 @@ def get_intro_lore():
         "where time itself seems to wane and waver. Myths tell of forgotten ruins hidden deep within, guarding secrets "
         "of a lost civilization and powerful artifacts waiting to be discovered."
         " But beware—within the heart of the forest lurk beings of dark magic, ancient guardians who protect the secrets of the past."
-        " Will you uncover the truth of Ebonwood Sanctum, or will you become another lost soul wandering its endless paths?"
+        " Will you uncover the truth of Ebonwood Sanctum, or will you become another lost soul wandering its endless paths?!"
     )
