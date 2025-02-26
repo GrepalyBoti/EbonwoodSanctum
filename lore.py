@@ -9,3 +9,7 @@ def get_intro_lore():
         " But beware—within the heart of the forest lurk beings of dark magic, ancient guardians who protect the secrets of the past."
         " Will you uncover the truth of Ebonwood Sanctum, or will you become another lost soul wandering its endless paths?!"
     )
+def get_ending_lore(): 
+     return (
+       You Won!!
+     )
