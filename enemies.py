@@ -26,6 +26,6 @@ def generate_enemy(player_level):
     demon_chance = min(0.005 * (2 ** (player_level - 1)), 1.0)  # Demon spawn chance doubles per level
     
     if random.random() < demon_chance:
-        return Enemy("Demon", 96, 12, 6, {"Fireball": 10, "Dark Slash": 15, "Hellfire": 22})
+        return Enemy("Demon", 96, 12, 6, {"Fireball": 110, "Dark Slash": 45, "Hellfire": 200})
     else:
         return Enemy(*random.choices(enemy_types, weights=weights, k=1)[0])
